@@ -6,18 +6,18 @@ describe ClamScan do
       ClamScan.configure do |config|
         config.client_location = '/asdf/zxcv'
       end
-        expect{scan_eicar}.to raise_error(ClamScan::RequestError)
+      expect{scan_eicar}.to raise_error(ClamScan::RequestError)
     end
 
     it 'raises ClamScan::RequestError when scanning a non-existant path and raise_unless_safe is true' do
       ClamScan.configure do |config|
         config.raise_unless_safe = true
       end
-      expect{scan(location: '/asdf/zxcv')}.to raise_error(ClamScan::ResponseError)
+      expect{scan(:location => '/asdf/zxcv')}.to raise_error(ClamScan::ResponseError)
     end
 
     it 'raises ClamScan::RequestError if an unrecognized option is passed' do
-      expect{ClamScan::Client.scan(loaction: eicar_path)}.to raise_error(ClamScan::RequestError)
+      expect{ClamScan::Client.scan(:loaction => eicar_path)}.to raise_error(ClamScan::RequestError)
     end
 
     it 'raises ClamScan::VirusDetected if virus is detected when raise_unless_safe is true' do
@@ -28,11 +28,11 @@ describe ClamScan do
     end
 
     it 'returns true for error? when scanning a non-existant path' do
-      expect(scan(location: '/asdf/zxcv').error?).to be_truthy
+      expect(scan(:location => '/asdf/zxcv').error?).to be_truthy
     end
 
     it 'has status of :error when scanning a non-existant path' do
-      expect(scan(location: '/asdf/zxcv').status).to eq(:error)
+      expect(scan(:location => '/asdf/zxcv').status).to eq(:error)
     end
   end
 
@@ -64,11 +64,11 @@ describe ClamScan do
 
   context :streaming do
     it 'detects safety from streamed data' do
-      expect(scan(stream: File.read(safe_path)).safe?).to be_truthy
+      expect(scan(:stream => File.read(safe_path)).safe?).to be_truthy
     end
 
     it 'detects a virus from streamed data' do
-      expect(scan(stream: File.read(eicar_path)).virus?).to be_truthy
+      expect(scan(:stream => File.read(eicar_path)).virus?).to be_truthy
     end
   end
 

@@ -5,8 +5,8 @@ module ClamScan
     attr_accessor :raise_unless_safe
 
     def initialize
-      @default_scan_options       = {stdout: true}
-      @client_location            = '/usr/bin/clamdscan'
+      @default_scan_options       = {:stdout => true}
+      @client_location            = '/usr/local/bin/clamdscan'
       @raise_unless_safe          = false
     end
 

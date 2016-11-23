@@ -3,9 +3,9 @@ def scan (opts={})
 end
 
 def scan_eicar
-  scan(location: eicar_path)
+  scan(:location => eicar_path)
 end
 
 def scan_safe
-  scan(location: safe_path)
+  scan(:location => safe_path)
 end

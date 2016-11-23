@@ -121,8 +121,7 @@ module ClamScan
           args << opts[:location] if opts[:location]
           args << '-' if opts[:stream]
         end
-
-        args
+        args.join(" ")
       end
     end
   end
