@@ -17,6 +17,10 @@ module ClamScan
         rescue SystemCallError => e
           raise RequestError, "An error occured while making system call to #{::ClamScan.configuration.client_location}: #{e.to_s}"
         end
+        
+        if output_lines.empty?
+          raise RequestError, "An error occurred while making a system call to #{::ClamScan.configuration.client_location}: #{e.to_s}"
+        end
 
         output_string = output_lines.join("\n")
         Response.new($?, output_string)
